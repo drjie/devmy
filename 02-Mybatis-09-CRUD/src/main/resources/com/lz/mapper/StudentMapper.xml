@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.StudentDao">
+   <insert id="insert" parameterType="Integer">
+    insert into student(name,age,gender,info) values (#{name},#{age},#{gender},#{info})
+   </insert>
+    <delete id="delete" parameterType="Integer">
+        delete from student where id=#{id}
+    </delete>
+    <update id="update">
+        update student set info=#{info} where id=#{id}
+    </update>
+    <select id="findALl" resultType="com.lz.entity.Student">
+        select * from student
+    </select>
+    <select id="findById" resultType="com.lz.entity.Student" parameterType="Integer">
+        select * from student where id=#{id}
+    </select>
+    <select id="findByKeyword" parameterType="String" resultType="com.lz.entity.Student">
+        select * from student where name like #{keyword}
+    </select>
+    <insert id="getIncrement" useGeneratedKeys="true" keyProperty="id">
+        insert into student(name,age,gender,info) values (#{name},#{age},#{gender},#{info})
+    </insert>
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用bean标签声明一个对象，必须指定class为完整的路径名，id或者name任选一个-->
+    <!--创建对象-->
+    <bean id="userDao" class="com.lz.dao.impl.UserDaoMySQLImpl"/>
+</beans>

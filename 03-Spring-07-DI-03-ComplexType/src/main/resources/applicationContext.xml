@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="car" class="com.lz.entity.Car">
+        <property name="color" value="red"/>
+    </bean>
+    <bean id="complexType" class="com.lz.entity.ComplexType">
+        <property name="objects">
+            <array>
+                <value>22</value>
+                <value>迪丽热巴</value>
+                <value>true</value>
+                <value>3.14159</value>
+                <value>bf</value>
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <value>六个核弹</value>
+                <value>润宝</value>
+                <value>雷碧</value>
+                <value>口渴可乐</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>521</value>
+                <value>520</value>
+                <value>123</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="person" value="迪丽热巴"/>
+                <entry key="car" value-ref="car"/>
+            </map>
+        </property>
+    </bean>
+</beans>

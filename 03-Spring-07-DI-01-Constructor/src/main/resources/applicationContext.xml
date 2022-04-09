@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="car" class="com.lz.entity.Car">
+        <constructor-arg name="speed" type="java.lang.Float" value="100.0F"/>
+        <constructor-arg name="color" type="java.lang.String" value="yellowgreen"/>
+    </bean>
+<!--    <bean id="car" class="com.lz.entity.Car">-->
+<!--        <constructor-arg name="speed" type="java.lang.Float" value="90.0F"/>-->
+<!--        <constructor-arg n  ame="color" type="java.lang.String" value="green"/>-->
+<!--    </bean>-->
+<!--    <bean id="car" class="com.lz.entity.Car">-->
+<!--        <constructor-arg name="speed" type="java.lang.Float" value="10.0F"/>-->
+<!--        <constructor-arg name="color" type="java.lang.String" value="yellow"/>-->
+<!--    </bean>-->
+    <bean id="person" class="com.lz.entity.Person">
+        <constructor-arg name="name" value="比多翁" type="java.lang.String"/>
+        <constructor-arg name="age" value="18" type="java.lang.Byte"/>
+        <constructor-arg name="car" type="com.lz.entity.Car" ref="car"/>
+    </bean>
+</beans>

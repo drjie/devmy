@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.StudentDao">
+    <select id="findByLessThanAge" resultType="com.lz.entity.Student" parameterType="integer">
+        select * from student where age&lt;=#{age}
+    </select>
+    <select id="findGreaterThanAge" parameterType="integer" resultType="com.lz.entity.Student">
+        select * from student where age <![CDATA[>]]> #{age}
+    </select>
+</mapper>

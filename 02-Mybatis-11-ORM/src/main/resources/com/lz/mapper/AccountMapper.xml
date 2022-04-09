@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.AccountDao">
+    <!--resultMap是自定义的映射规则
+    id：唯一标识，可以让sql语句标签来调用
+    type：映射的结果类型-->
+    <resultMap id="findByIdMap" type="com.lz.entity.Account">
+        <!--column:列名；property：成员变量名-->
+        <id column="t_id" property="id"/>
+        <result column="t_name" property="username"/>
+        <result column="t_pwd" property="password"/>
+    </resultMap>
+    <select id="findAll" resultType="com.lz.entity.Account">
+        select t_id id,t_name username,t_pwd password from t_account
+    </select>
+    <select id="findById" resultMap="findByIdMap" parameterType="Integer">
+        select * from t_account where t_id=#{id}
+    </select>
+    <select id="findByCamelCase" resultType="com.lz.entity.TAccount">
+        select * from t_account
+    </select>
+</mapper>

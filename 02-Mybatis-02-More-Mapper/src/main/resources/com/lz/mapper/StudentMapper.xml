@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.StudentDao">
+    <!--select 对应的查询语句 id也是唯一的 可以随便写-->
+    <select id="select" resultType="com.lz.entity.Student">
+        select * from student where id=7
+    </select>
+    <insert id="insert">
+        insert into student(name ,age,gender,info) values ('古力娜扎',30,'女','择天记')
+    </insert>
+    <select id="findById" resultType="com.lz.entity.Student">
+        select * from student where id=1
+    </select>
+    <select id="findAll" resultType="com.lz.entity.Student">
+        select * from student
+    </select>
+    <select id="findStudentById" resultType="com.lz.entity.Student">
+        select * from student where id=#{id};
+    </select>
+</mapper>

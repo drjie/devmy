@@ -1,0 +1,18 @@
+package com.lz.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Student {
+    private Integer id;
+    private String name;
+    private Byte age;
+    private String gender;
+    private String info;
+}

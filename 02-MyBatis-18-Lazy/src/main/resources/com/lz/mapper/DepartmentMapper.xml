@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.DepartmentDao">
+    <resultMap id="findByIdMap" type="com.lz.entity.Department">
+        <id column="dept_id" property="id"/>
+        <result column="dept_name" property="name"/>
+        <collection column="dept_id" select="com.lz.dao.EmployeeDao.findById" property="employees" javaType="List" ofType="com.lz.entity.Employee"/>
+    </resultMap>
+    <select id="findById" resultMap="findByIdMap">
+        select * from department where dept_id=#{id}
+    </select>
+</mapper>

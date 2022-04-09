@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.StudentDao">
+    <sql id="field">
+        id,name,age,gender,birthday,info
+    </sql>
+    <select id="findAll" resultType="com.lz.entity.Student">
+        select  <include refid="field"/>  from student
+    </select>
+    <select id="findByKeyword" resultType="com.lz.entity.Student">
+        select <include refid="field"/>
+        from student
+        where 1=1
+        <if test="name!=null">
+            and name like #{name}
+        </if>
+        <if test="age!=null">
+            and age=#{age}
+        </if>
+    </select>
+    <select id="findByStudent" resultType="com.lz.entity.Student">
+        select <include refid="field"/> from student
+        <where>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="age!=null">
+                and age=#{age}
+            </if>
+            <if test="gender!=null">
+                and gender=#{gender}
+            </if>
+            <if test="birthday!=null">
+                and birthday=#{birthday}
+            </if>
+            <if test="info!=null">
+                and info=#{info}
+            </if>
+        </where>
+    </select>
+    <select id="findByStudentWithTrim" resultType="com.lz.entity.Student">
+        select <include refid="field"/> from student
+        <trim prefix="where" prefixOverrides="and">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="age!=null">
+                and age=#{age}
+            </if>
+            <if test="gender!=null">
+                and gender=#{gender}
+            </if>
+            <if test="birthday!=null">
+                and birthday=#{birthday}
+            </if>
+            <if test="info!=null">
+                and info=#{info}
+            </if>
+        </trim>
+    </select>
+    <update id="update">
+        update student
+        <set>
+            <if test="name!=null">
+                 name=#{name}
+            </if>
+            <if test="age!=null">
+                 age=#{age}
+            </if>
+            <if test="gender!=null">
+                 gender=#{gender}
+            </if>
+            <if test="birthday!=null">
+                birthday=#{birthday}
+            </if>
+            <if test="info!=null">
+                 info=#{info}
+            </if>
+        </set>
+            where id=#{id}
+    </update>
+    <update id="updateWithTrim">
+        update student
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">
+                name=#{name}
+            </if>
+            <if test="age!=null">
+                age=#{age}
+            </if>
+            <if test="gender!=null">
+                gender=#{gender}
+            </if>
+            <if test="birthday!=null">
+                birthday=#{birthday}
+            </if>
+            <if test="info!=null">
+                info=#{info}
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+    <delete id="deleteMore">
+        delete from student where id in 
+        <foreach collection="array" open="(" close=")" separator="," index="i" item="id">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

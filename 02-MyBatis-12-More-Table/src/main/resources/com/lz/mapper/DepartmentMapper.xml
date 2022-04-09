@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射 namespace 命名空间随便写但是不能重复-->
+<mapper namespace="com.lz.dao.DepartmentDao">
+    <resultMap id="findAllMap" type="com.lz.entity.Department">
+        <id column="dept_id" property="id"/>
+        <result column="dept_name" property="name"/>
+        <!--一对多的映射标签-->
+        <collection property="employees" javaType="List" ofType="com.lz.entity.Employee">
+            <id column="emp_id" property="id"/>
+            <result column="emp_name" property="name"/>
+        </collection>
+    </resultMap>
+   <select id="findAll" resultMap="findAllMap">
+        select * from department
+        inner join employee e on department.dept_id = e.dept_id
+   </select>
+</mapper>
