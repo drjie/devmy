@@ -17,4 +17,6 @@ public interface PoorService {
 
     ResultVo click(Long id, Date lastClickTime);
 
+    ResultVo search(String val);
+
 }

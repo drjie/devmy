@@ -5,7 +5,10 @@ import com.lz.service.UserService;
 import com.lz.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -14,7 +17,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("getList")
+    @GetMapping("sousuo")
+    public ResultVo search(@RequestParam(value = "val")String val){
+        return userService.search(val);
+    }
+
+    @GetMapping("getlist")
     public ResultVo getList(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                             @RequestParam(value = "pageSize",defaultValue = "2") Integer pageSize, Long id){
         return userService.getList(pageNum,pageSize,id);

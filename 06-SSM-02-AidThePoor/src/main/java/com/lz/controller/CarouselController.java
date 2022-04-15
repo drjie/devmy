@@ -10,16 +10,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("carousel")
+
 public class CarouselController {
     @Autowired
     private CarouselService carouselService;
 
-    @PostMapping("state")
+    @GetMapping("sousuo")
+    public ResultVo search(@RequestParam(value = "val")String val){
+        return carouselService.search(val);
+    }
+
+    @GetMapping("state")
     public ResultVo changeStatus(@RequestParam Integer id) {
         return carouselService.changeStatus(id);
     }
 
-    @GetMapping("getList")
+    @GetMapping("getlist")
     public ResultVo getList(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                             @RequestParam(value = "pageSize",defaultValue = "2") Integer pageSize, Integer id){
         return carouselService.getList(pageNum,pageSize,id);

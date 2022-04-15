@@ -14,4 +14,6 @@ public interface CarouselService {
     ResultVo delete(Integer id);
 
     ResultVo changeStatus(Integer id);
+
+    ResultVo search(String val);
 }

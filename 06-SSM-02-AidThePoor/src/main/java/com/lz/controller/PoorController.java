@@ -11,16 +11,22 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("poor")
+
 public class PoorController {
     @Autowired
     private PoorService poorService;
+
+    @GetMapping("sousuo")
+    public ResultVo search(@RequestParam(value = "val")String val){
+        return poorService.search(val);
+    }
 
     @PostMapping("click")
     public ResultVo click(Poor poor) {
         return poorService.click(poor.getId(), poor.getLastClickTime());
     }
 
-    @GetMapping("getList")
+    @GetMapping("getlist")
     public ResultVo getList(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                             @RequestParam(value = "pageSize",defaultValue = "2") Integer pageSize, Long id){
         return poorService.getList(pageNum,pageSize,id);

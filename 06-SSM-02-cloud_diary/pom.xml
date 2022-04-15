@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lz</groupId>
-    <artifactId>06-SSM-02-AidThePoor</artifactId>
+    <artifactId>06-SSM-02-cloud_diary</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>06-SSM-02-AidThePoor</name>
+    <name>06-SSM-02-cloud-diary</name>
     <packaging>war</packaging>
 
     <properties>
@@ -110,11 +110,6 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.76</version>
         </dependency>
     </dependencies>
 

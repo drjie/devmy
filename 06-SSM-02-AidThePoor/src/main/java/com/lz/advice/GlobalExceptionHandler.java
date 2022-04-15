@@ -26,12 +26,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseBody
     public ResultVo exception(RuntimeException e){
+        e.printStackTrace();
         return new ResultVo(5000,"系统操作异常请稍后重试，或者滴管理员",false,e.getMessage());
     }
 
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     @ResponseBody
     public ResultVo exception(HttpRequestMethodNotSupportedException e){
-        return new ResultVo(5000,"请求方式有误,请自行查看文档 谢谢！！！",false,e.getMessage());
+        return new ResultVo(5000,"请求方式有误,请查看文档",false,e.getMessage());
     }
 }

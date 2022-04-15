@@ -4,7 +4,6 @@ import com.lz.entity.Alleviation;
 import com.lz.vo.ResultVo;
 
 import java.util.Date;
-import java.util.Map;
 
 public interface AlleviationService {
 
@@ -17,5 +16,7 @@ public interface AlleviationService {
     ResultVo delete(Long id);
 
     ResultVo click(Long id, Date lastClickTime);
+
+    ResultVo search(String val);
 
 }

@@ -3,9 +3,9 @@ package com.lz.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lz.dao.MessageBoardMapper;
-import com.lz.entity.MessageBoard;
+import com.lz.entity.Collection;
+import com.lz.entity.MessageBoardExample;
 import com.lz.entity.MessageBoardWithBLOBs;
-import com.lz.entity.User;
 import com.lz.service.MessageBoardService;
 import com.lz.vo.DataVo;
 import com.lz.vo.ResultVo;
@@ -92,7 +92,7 @@ public class MessageBoardServiceImpl implements MessageBoardService {
     public ResultVo update(MessageBoardWithBLOBs messageBoard) {
         ResultVo vo;
 
-        int i = messageBoardMapper.updateByPrimaryKeySelective((MessageBoardWithBLOBs) messageBoard);
+        int i = messageBoardMapper.updateByPrimaryKeySelective(messageBoard);
 
         if (i>0){
             //修改之后再重新查询一次保证返回给前端最新最全的数据
@@ -135,6 +135,34 @@ public class MessageBoardServiceImpl implements MessageBoardService {
         }
 
         return vo;
+    }
+
+    @Override
+    public ResultVo search(String val) {
+        DataVo<MessageBoardWithBLOBs> messageBoardWithBLOBsDataVo;
+
+        List<MessageBoardWithBLOBs> messageBoardWithBLOBs;
+
+        ResultVo vo;
+
+        MessageBoardExample messageBoardExample = new MessageBoardExample();
+
+        MessageBoardExample.Criteria criteria = messageBoardExample.createCriteria();
+
+        criteria.andUsernameLike("%" + val + "%");
+
+        messageBoardWithBLOBs = messageBoardMapper.selectByExampleWithBLOBs(messageBoardExample);
+
+        if (messageBoardWithBLOBs==null){
+            messageBoardWithBLOBsDataVo = new DataVo<>(0L, messageBoardWithBLOBs,null,null);
+            vo = new ResultVo(4000, "没有搜索到", false, messageBoardWithBLOBsDataVo);
+        }else {
+
+            messageBoardWithBLOBsDataVo = new DataVo<>(1L, messageBoardWithBLOBs, null, null);
+            vo = new ResultVo(1000, "搜索到了", true, messageBoardWithBLOBsDataVo);
+        }
+        return vo;
+
     }
 
 }

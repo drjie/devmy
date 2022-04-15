@@ -17,4 +17,5 @@ public interface MessageBoardService {
 
     ResultVo reply(MessageBoardWithBLOBs messageBoard);
 
+    ResultVo search(String val);
 }

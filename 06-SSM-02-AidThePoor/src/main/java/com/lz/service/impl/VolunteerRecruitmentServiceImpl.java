@@ -3,6 +3,8 @@ package com.lz.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lz.dao.VolunteerRecruitmentMapper;
+import com.lz.entity.User;
+import com.lz.entity.VolunteerRecruitmentExample;
 import com.lz.entity.VolunteerRecruitment;
 import com.lz.service.VolunteerRecruitmentService;
 import com.lz.vo.DataVo;
@@ -23,43 +25,43 @@ public class VolunteerRecruitmentServiceImpl implements VolunteerRecruitmentServ
         DataVo<VolunteerRecruitment> volunteerRecruitmentDataVo;
         List<VolunteerRecruitment> volunteerRecruitments;
 
-        if (id!=null){
-            volunteerRecruitments=new ArrayList<>();
+        if (id != null) {
+            volunteerRecruitments = new ArrayList<>();
 
             VolunteerRecruitment volunteerRecruitment = volunteerRecruitmentMapper.selectByPrimaryKey(id);
 
-            if (volunteerRecruitment==null){
-                volunteerRecruitmentDataVo=new DataVo<>(0L,volunteerRecruitments,pageNum,pageSize);
-                resultVo=new ResultVo(4000,"未查到志愿者",false,volunteerRecruitmentDataVo);
-            }else {
+            if (volunteerRecruitment == null) {
+                volunteerRecruitmentDataVo = new DataVo<>(0L, volunteerRecruitments, pageNum, pageSize);
+                resultVo = new ResultVo(4000, "未查到志愿者", false, volunteerRecruitmentDataVo);
+            } else {
                 //如果是查询单个那么点击量应该加1
-                click(volunteerRecruitment.getId(),null);
+                click(volunteerRecruitment.getId(), null);
 
                 //更新点击次数
 
-                volunteerRecruitment.setClickNum(volunteerRecruitment.getClickNum()+1);
+                volunteerRecruitment.setClickNum(volunteerRecruitment.getClickNum() + 1);
 
                 volunteerRecruitments.add(volunteerRecruitment);
 
-                volunteerRecruitmentDataVo=new DataVo<>(0L,volunteerRecruitments,pageNum,pageSize);
+                volunteerRecruitmentDataVo = new DataVo<>(0L, volunteerRecruitments, pageNum, pageSize);
 
-                resultVo=new ResultVo(1000,"查到了志愿者",true,volunteerRecruitmentDataVo);
+                resultVo = new ResultVo(1000, "查到了志愿者", true, volunteerRecruitmentDataVo);
             }
-        }else {
-            PageHelper.startPage(pageNum,pageSize);
+        } else {
+            PageHelper.startPage(pageNum, pageSize);
 
-            volunteerRecruitments=volunteerRecruitmentMapper.selectByExample(null);
+            volunteerRecruitments = volunteerRecruitmentMapper.selectByExample(null);
 
-            if (volunteerRecruitments.size()==0){
-                volunteerRecruitmentDataVo=new DataVo<>(0L,volunteerRecruitments,pageNum,pageSize);
+            if (volunteerRecruitments.size() == 0) {
+                volunteerRecruitmentDataVo = new DataVo<>(0L, volunteerRecruitments, pageNum, pageSize);
 
-                resultVo=new ResultVo(4100,"没有志愿者",false,volunteerRecruitmentDataVo);
-            }else {
+                resultVo = new ResultVo(4100, "没有志愿者", false, volunteerRecruitmentDataVo);
+            } else {
                 PageInfo<VolunteerRecruitment> pageInfo = new PageInfo<>(volunteerRecruitments);
 
-                volunteerRecruitmentDataVo=new DataVo<>(pageInfo.getTotal(),volunteerRecruitments,pageNum,pageSize);
+                volunteerRecruitmentDataVo = new DataVo<>(pageInfo.getTotal(), volunteerRecruitments, pageNum, pageSize);
 
-                resultVo=new ResultVo(1100,"志愿者查询成功",true,volunteerRecruitmentDataVo);
+                resultVo = new ResultVo(1100, "志愿者查询成功", true, volunteerRecruitmentDataVo);
             }
         }
         return resultVo;
@@ -70,7 +72,7 @@ public class VolunteerRecruitmentServiceImpl implements VolunteerRecruitmentServ
         ResultVo vo;
 
         //判断是否有创建时间没有就自己加上去
-        if (volunteerRecruitment.getCreateTime()==null){
+        if (volunteerRecruitment.getCreateTime() == null) {
             volunteerRecruitment.setCreateTime(Calendar.getInstance(Locale.CHINA).getTime());
         }
 
@@ -80,10 +82,10 @@ public class VolunteerRecruitmentServiceImpl implements VolunteerRecruitmentServ
 
         int i = volunteerRecruitmentMapper.insertSelective(volunteerRecruitment);
 
-        if (i>0){
-            vo=new ResultVo(1000,"添加志愿者成功",true,volunteerRecruitment);
-        }else {
-            vo=new ResultVo(5000,"添加志愿者失败",false,null);
+        if (i > 0) {
+            vo = new ResultVo(1000, "添加志愿者成功", true, volunteerRecruitment);
+        } else {
+            vo = new ResultVo(5000, "添加志愿者失败", false, null);
         }
 
 
@@ -96,12 +98,12 @@ public class VolunteerRecruitmentServiceImpl implements VolunteerRecruitmentServ
 
         int i = volunteerRecruitmentMapper.updateByPrimaryKeySelective(volunteerRecruitment);
 
-        if (i>0){
+        if (i > 0) {
             //修改之后再重新查询一次保证返回给前端最新最全的数据
             volunteerRecruitment = volunteerRecruitmentMapper.selectByPrimaryKey(volunteerRecruitment.getId());
-            vo=new ResultVo(1000,"修改志愿者成功",true,volunteerRecruitment);
-        }else {
-            vo=new ResultVo(5000,"修改志愿者失败",false,null);
+            vo = new ResultVo(1000, "修改志愿者成功", true, volunteerRecruitment);
+        } else {
+            vo = new ResultVo(5000, "修改志愿者失败", false, null);
         }
         return vo;
     }
@@ -112,10 +114,10 @@ public class VolunteerRecruitmentServiceImpl implements VolunteerRecruitmentServ
 
         int i = volunteerRecruitmentMapper.deleteByPrimaryKey(id);
 
-        if (i>0){
-            vo=new ResultVo(1000,"删除志愿者成功",true,null);
-        }else {
-            vo=new ResultVo(5000,"删除志愿者失败",false,null);
+        if (i > 0) {
+            vo = new ResultVo(1000, "删除志愿者成功", true, null);
+        } else {
+            vo = new ResultVo(5000, "删除志愿者失败", false, null);
         }
         return vo;
     }
@@ -124,16 +126,44 @@ public class VolunteerRecruitmentServiceImpl implements VolunteerRecruitmentServ
     public ResultVo click(Long id, Date lastClickTime) {
         ResultVo vo;
 
-        if (lastClickTime==null){
-            lastClickTime=new Date();
+        if (lastClickTime == null) {
+            lastClickTime = new Date();
         }
 
         int i = volunteerRecruitmentMapper.click(id, lastClickTime);
 
-        if (i>0){
-            vo=new ResultVo(1000,"播放量加1成功！！",true,null);
+        if (i > 0) {
+            vo = new ResultVo(1000, "播放量加1成功！！", true, null);
+        } else {
+            vo = new ResultVo(5000, "播放量加1失败！！", false, null);
+        }
+        return vo;
+    }
+
+    @Override
+    public ResultVo search(String val) {
+
+        DataVo<VolunteerRecruitment> volunteerRecruitmentDataVo;
+
+        List<VolunteerRecruitment> volunteerRecruitments;
+
+        ResultVo vo;
+
+        VolunteerRecruitmentExample volunteerRecruitmentExample = new VolunteerRecruitmentExample();
+
+        VolunteerRecruitmentExample.Criteria criteria = volunteerRecruitmentExample.createCriteria();
+
+        criteria.andTotalLike("%" + val + "%");
+
+        volunteerRecruitments = volunteerRecruitmentMapper.selectByExample(volunteerRecruitmentExample);
+
+        if (volunteerRecruitments==null){
+            volunteerRecruitmentDataVo = new DataVo<>(0L, volunteerRecruitments,null,null);
+            vo = new ResultVo(4000, "没有搜索到", false, volunteerRecruitmentDataVo);
         }else {
-            vo=new ResultVo(5000,"播放量加1失败！！",false,null);
+
+            volunteerRecruitmentDataVo = new DataVo<>(1L, volunteerRecruitments, null, null);
+            vo = new ResultVo(1000, "搜索到了", true, volunteerRecruitmentDataVo);
         }
         return vo;
     }

@@ -9,11 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("collection")
+
 public class CollectController {
     @Autowired
     private CollectService collectService;
 
-    @GetMapping("getList")
+    @GetMapping("sousuo")
+    public ResultVo search(@RequestParam(value = "val")String val){
+        return collectService.search(val);
+    }
+
+    @GetMapping("getlist")
     public ResultVo getList(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                             @RequestParam(value = "pageSize",defaultValue = "2") Integer pageSize, Long id){
         return collectService.getList(pageNum,pageSize,id);

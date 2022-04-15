@@ -17,4 +17,6 @@ public interface VolunteerRecruitmentService {
     ResultVo delete(Long id);
 
     ResultVo click(Long id, Date lastClickTime);
+
+    ResultVo search(String val);
 }

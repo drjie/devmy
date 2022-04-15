@@ -144,7 +144,7 @@
       member, number, address, 
       cover, income, username, 
       name, audit, last_click_time, 
-      click_num, condition, introduce, 
+      click_num, `condition`, introduce,
       reply)
     values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{sn,jdbcType=VARCHAR}, 
       #{member,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
@@ -333,7 +333,7 @@
       audit = #{record.audit,jdbcType=VARCHAR},
       last_click_time = #{record.lastClickTime,jdbcType=TIMESTAMP},
       click_num = #{record.clickNum,jdbcType=INTEGER},
-      condition = #{record.condition,jdbcType=LONGVARCHAR},
+      `condition` = #{record.condition,jdbcType=LONGVARCHAR},
       introduce = #{record.introduce,jdbcType=LONGVARCHAR},
       reply = #{record.reply,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -399,7 +399,7 @@
         click_num = #{clickNum,jdbcType=INTEGER},
       </if>
       <if test="condition != null">
-        condition = #{condition,jdbcType=LONGVARCHAR},
+        `condition` = #{condition,jdbcType=LONGVARCHAR},
       </if>
       <if test="introduce != null">
         introduce = #{introduce,jdbcType=LONGVARCHAR},

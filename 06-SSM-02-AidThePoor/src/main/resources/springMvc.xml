@@ -18,6 +18,7 @@
     <!--导入业务层的配置文件-->
     <import resource="classpath:applicationContext.xml"/>
 
+    <mvc:default-servlet-handler/>
     <!--转换器容器工厂-->
     <bean id="factoryBean" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <!--可以添加多个自定义的转换器-->
@@ -28,4 +29,20 @@
             </set>
         </property>
     </bean>
+    <!--文件解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--最大上传的文件大小（总文件的总大小）-->
+        <property name="maxUploadSize" value="500000000000000"/>
+        <!--编码集-->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!--单个文件的大小-->
+        <property name="maxUploadSizePerFile" value="2000000"/>
+        <!--缓存-->
+        <property name="maxInMemorySize" value="4096"/>
+    </bean>
+
+    <!--跨域配置-->
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*"/>
+    </mvc:cors>
 </beans>
