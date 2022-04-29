@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzqc.dao.OrderMapper">
+
+    <!--缓存策略-->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--保存订单信息-->
+    <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into `order`(orderTime, orderPrice, orderState, userid, tel, address, orderName)
+        values (#{orderTime},#{orderPrice},#{orderState},#{userid},#{tel},#{address},#{orderName})
+    </insert>
+
+    <!--批量插入订单项-->
+    <insert id = "saveBatch" parameterType="list">
+        insert into orderitem(dishId,dishNum,price,orderId,totalPrice,dishName) values
+        <foreach collection="list" item="orderitem" separator=",">
+            (#{orderitem.dishId},#{orderitem.dishNum},#{orderitem.price},#{orderitem.orderId},#{orderitem.totalPrice},#{orderitem.dishName})
+        </foreach>
+    </insert>
+
+</mapper>

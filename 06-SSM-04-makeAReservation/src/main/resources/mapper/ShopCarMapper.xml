@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzqc.dao.ShopCarMapper">
+
+    <!--缓存策略-->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--通过用户id和菜品id查找加入购物车的信息-->
+    <select id="findDishInfo" parameterType="ShopCar" resultType="ShopCar">
+        select id, userId, dishId, dishNum, price, totalPrice, dishName
+        from shopcar
+        where userId = #{userId}
+          and dishId = #{dishId}
+    </select>
+
+    <!--保存购物车信息-->
+    <insert id="save" parameterType="ShopCar">
+        insert into shopcar(dishId, userId, dishNum, price, totalPrice, dishName)
+        values (#{dishId}, #{userId}, #{dishNum}, #{price}, #{totalPrice}, #{dishName})
+    </insert>
+
+    <!--更新购物信息-->
+    <update id="update" parameterType="ShopCar">
+        update shopcar
+        set dishNum = #{dishNum},
+            totalPrice=#{totalPrice} where userId = #{userId} and dishId = #{dishId}
+    </update>
+
+    <!--根据当前登录者id查询购物车信息-->
+    <select id = "findByUserId" parameterType="int" resultType="ShopCar">
+        select id,dishId,userId,dishNum,price,totalPrice,dishName from shopcar where userId=#{userId}
+    </select>
+
+    <!--根据用户id和菜品id从表中移除-->
+    <delete id = "del" >
+        delete from shopcar where userId=#{userId} and dishId = #{dishId}
+    </delete>
+
+    <!--删除购物车信息-->
+    <delete id = "delById" parameterType="int">
+        delete from shopcar where userId = #{userId}
+    </delete>
+</mapper>

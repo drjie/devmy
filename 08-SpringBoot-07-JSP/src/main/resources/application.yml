@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+#配置SpringMvc 视图解析器
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp

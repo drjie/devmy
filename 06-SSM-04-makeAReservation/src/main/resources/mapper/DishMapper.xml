@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzqc.dao.DishMapper">
+
+    <!--缓存策略-->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+    <!--查询所有菜品-->
+    <select id = "findAll" resultType="Dishes">
+        select * from dishes
+    </select>
+
+    <!--通过菜品id查询菜品信息-->
+    <select id = "findById" parameterType="Integer" resultType="Dishes" >
+        select * from dishes where id = #{dishId}
+    </select>
+
+    <!--更新点赞数量-->
+    <update id = "updatePraiseNum" parameterType="int">
+        UPDATE dishes SET praiseNum = (praiseNum+1) WHERE id = #{dishId}
+    </update>
+</mapper>

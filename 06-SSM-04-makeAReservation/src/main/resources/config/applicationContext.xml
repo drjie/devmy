@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+    <!--配置扫描的包-->
+    <context:component-scan base-package="com.dzqc"/>
+
+    <!--加载数据库配置文件-->
+    <context:property-placeholder location="classpath:config/db.properties"/>
+
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="username" value="${db.userName}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="jdbcUrl" value="${db.url}"/>
+    </bean>
+
+    <bean id = "sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--关于mybatis的其他配置都从该配置文件加载-->
+        <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+    </bean>
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg ref="dataSource" />
+    </bean>
+    <!--开启基于注解的事务管理-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--扫描mapper接口代理类-->
+    <bean class = "org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lz.dao"/>
+    </bean>
+</beans>

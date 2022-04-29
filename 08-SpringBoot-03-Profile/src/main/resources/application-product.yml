@@ -1,0 +1,9 @@
+#生产环境配置
+server:
+  port: 8848
+  servlet:
+    context-path: /product
+
+student:
+  name:古力娜扎
+  age:33
